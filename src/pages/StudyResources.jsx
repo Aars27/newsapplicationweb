@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const PRIMARY_COLOR = '#6F61C1'; // आपका गहरा बैंगनी/नीला रंग
 const ACCENT_COLOR = '#FFC107'; // हाइलाइट के लिए नारंगी
 const LIGHT_BG_COLOR = '#f8f6fb'; // सेक्शन बैकग्राउंड
-const HERO_GRADIENT_END = '#5d4e9c'; // Hero Section ग्रेडिएंट के लिए थोड़ा गहरा शेड
+// HERO_GRADIENT_END अब उपयोग नहीं किया जाएगा
 
 export default function StudyResources() {
   const [activeTab, setActiveTab] = useState('class');
@@ -198,6 +198,14 @@ export default function StudyResources() {
     return matchesExam && matchesSearch;
   });
 
+  // Helper function to format downloads
+  const formatDownloads = (num) => {
+      if (num >= 1000) {
+          return (num / 1000).toFixed(1) + 'k+';
+      }
+      return num;
+  };
+
   return (
     <main className="study-resources-page">
       <style jsx global>{`
@@ -213,97 +221,68 @@ export default function StudyResources() {
         <div className="container">
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb mb-0">
-              {/* <li className="breadcrumb-item">
-                <Link to="/" style={{ color: PRIMARY_COLOR }}>
-                  Home
-                </Link> */}
-              {/* </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                Study Resources
-              </li> */}
+               {/* Breadcrumb content will go here if needed */}
             </ol>
           </nav>
         </div>
       </section>
 
-      {/* Hero Section (डिज़ाइन से मिलता-जुलता + बबल्स) */}
-      <section
-        className="resources-hero py-5 text-white text-center position-relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${PRIMARY_COLOR} 0%, ${HERO_GRADIENT_END} 100%)` }}
-      >
-        {/* Decorative Circles (जैसे डिज़ाइन में हैं) */}
-        <div className="circle circle-lg position-absolute top-0 start-0 translate-middle opacity-25"></div>
-        <div className="circle circle-md position-absolute bottom-0 end-0 translate-middle-y opacity-25"></div>
-        <div className="circle circle-sm position-absolute top-50 start-10 translate-middle-y opacity-25"></div>
-        <div className="circle circle-lg position-absolute bottom-0 start-50 translate-middle-x opacity-25"></div>
-
-
-        <div className="container position-relative z-1 py-5"> {/* z-index added for content to be above bubbles */}
-          <div className="row align-items-center">
-            <div className="col-lg-12 text-center">
-              <h1 className="display-4 fw-bold mb-3">
-                <span className="text-white">Your Complete </span>
-                <span style={{ color: ACCENT_COLOR }}>Study Resources</span>
-              </h1>
-              <p className="lead mb-4 px-lg-5 mx-auto" style={{ maxWidth: '900px', opacity: '0.9' }}>
-                Free notes, eBooks, sample papers, and study materials for all classes and competitive exams (UP Board, CBSE, JEE, NEET, SSC, UPSC).
-              </p>
-              
-              {/* Search Box (Hero Section के नीचे) */}
-              <div className="search-section mt-5">
-                <div className="row justify-content-center">
-                  <div className="col-lg-8">
-                    <div className="search-box position-relative">
-                      <input
+      {/* Primary Search/Title Bar (New addition to replace hero section functionality partially) */}
+      <section className="search-title-bar py-4" style={{ background: LIGHT_BG_COLOR }}>
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-lg-10">
+                <h2 className="mb-3 text-center fw-bold" style={{ color: PRIMARY_COLOR }}>
+                    Study Resources & Exam Prep Material
+                </h2>
+                <div className="search-box position-relative">
+                    <input
                         type="text"
-                        className="form-control form-control-lg shadow-lg"
-                        placeholder="Search by class, subject, or exam..."
+                        className="form-control form-control-lg shadow-sm border-0"
+                        placeholder="Search by topic, class, or exam..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        style={{ paddingLeft: '50px', borderRadius: '50px', border: 'none' }}
-                      />
-                      <i
+                        style={{ paddingLeft: '50px', borderRadius: '50px' }}
+                    />
+                    <i
                         className="fas fa-search position-absolute"
                         style={{ left: '20px', top: '50%', transform: 'translateY(-50%)', color: PRIMARY_COLOR }}
-                      ></i>
-                    </div>
-                  </div>
+                    ></i>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       </section>
 
       {/* Main Tabs (Navigation - डिज़ाइन स्टाइल) */}
-      <section className="tabs-section py-4" style={{ background: LIGHT_BG_COLOR }}>
+      <section className="tabs-section py-4 shadow-sm" style={{ background: '#ffffff' }}>
         <div className="container">
-          <ul className="nav nav-pills nav-fill resource-tabs mb-4">
-            <li className="nav-item">
+          <ul className="nav nav-pills nav-fill resource-tabs mb-0"> {/* mb-4 removed */}
+            <li className="nav-item mx-1 my-1">
               <button
                 className={`nav-link ${activeTab === 'class' ? 'active' : ''}`}
                 onClick={() => setActiveTab('class')}
               >
                 <i className="fas fa-book-open me-2"></i>
-                Class-wise Resources
+                **Class Resources**
               </button>
             </li>
-            <li className="nav-item">
+            <li className="nav-item mx-1 my-1">
               <button
                 className={`nav-link ${activeTab === 'exam' ? 'active' : ''}`}
                 onClick={() => setActiveTab('exam')}
               >
                 <i className="fas fa-graduation-cap me-2"></i>
-                Exam Preparation
+                **Exam Prep**
               </button>
             </li>
-            <li className="nav-item">
+            <li className="nav-item mx-1 my-1">
               <button
                 className={`nav-link ${activeTab === 'papers' ? 'active' : ''}`}
                 onClick={() => setActiveTab('papers')}
               >
                 <i className="fas fa-file-pdf me-2"></i>
-                Previous Papers
+                **Previous Papers**
               </button>
             </li>
           </ul>
@@ -314,10 +293,10 @@ export default function StudyResources() {
 
       {/* Class-wise Resources Tab */}
       {activeTab === 'class' && (
-        <section className="py-5">
+        <section className="py-5" style={{ background: LIGHT_BG_COLOR }}>
           <div className="container">
-            <h2 className="mb-4 text-center fw-bold" style={{ color: PRIMARY_COLOR }}>
-              Class-wise Materials (9-UG)
+            <h2 className="mb-5 text-center fw-bold" style={{ color: PRIMARY_COLOR }}>
+                📚 Class-wise Materials <span className="text-muted">(9-UG)</span>
             </h2>
             {/* Class Filter */}
             <div className="filter-section mb-5 text-center">
@@ -339,55 +318,55 @@ export default function StudyResources() {
                     }`}
                     onClick={() => setSelectedClass(cls)}
                   >
-                    Class {cls}
+                    Class **{cls}**
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="row g-4">
+            <div className="row g-5">
               {filteredClassResources.length > 0 ? (
                 filteredClassResources.map((resource) => (
                   <div key={resource.id} className="col-lg-4 col-md-6">
-                    <div className="resource-card card h-100 border-0 shadow-sm overflow-hidden glass-card">
+                    <div className="resource-card card h-100 border-0 shadow-lg news-card">
+                      
                       <div className="resource-thumbnail">
                         <img src={resource.thumbnail} alt={resource.title} />
-                        <span className="class-badge">Class {resource.class}</span>
+                        <span className="card-badge">Class {resource.class}</span>
                       </div>
-                      <div className="card-body">
+
+                      <div className="card-body pb-0">
                         <span className="subject-tag">{resource.subject}</span>
-                        <h5 className="card-title mt-2 mb-3 fw-bold">{resource.title}</h5>
-                        <div className="resource-info">
+                        <h5 className="card-title mt-2 mb-3 fw-bolder text-dark news-title">{resource.title}</h5>
+                        
+                        <div className="resource-info mb-3">
                           <div className="info-item">
                             <i className="fas fa-file-alt text-muted"></i>
-                            <span>{resource.type}</span>
-                          </div>
-                          <div className="info-item">
-                            <i className="fas fa-hdd text-muted"></i>
-                            <span>{resource.size}</span>
+                            <span>Type: **{resource.type}**</span>
                           </div>
                           <div className="info-item">
                             <i className="fas fa-file-pdf text-danger"></i>
                             <span>{resource.pages} pages</span>
                           </div>
-                          <div className="info-item">
-                            <i className="fas fa-download" style={{ color: ACCENT_COLOR }}></i>
-                            <span className="fw-bold">{resource.downloads} downloads</span>
-                          </div>
                         </div>
+
                       </div>
-                      <div className="card-footer bg-transparent border-0 pt-0">
-                        <button className="btn btn-primary-custom w-100 mt-2">
-                          <i className="fas fa-download me-2"></i>
-                          Download PDF
-                        </button>
+                      <div className="card-footer bg-transparent border-0 pt-0 d-flex justify-content-between align-items-center">
+                         <div className="info-item-footer">
+                            <i className="fas fa-download me-1" style={{ color: ACCENT_COLOR }}></i>
+                            <span className="fw-bold text-dark">{formatDownloads(resource.downloads)} Downloads</span>
+                          </div>
+                          <button className="btn btn-sm btn-primary-custom-light">
+                            <i className="fas fa-cloud-download-alt me-1"></i>
+                            Get
+                          </button>
                       </div>
                     </div>
                   </div>
                 ))
               ) : (
                 <div className="col-12 text-center py-5">
-                  <p className="lead text-muted">No resources found.</p>
+                  <p className="lead text-muted"><i className="fas fa-info-circle me-2"></i>No resources found for the selected criteria.</p>
                 </div>
               )}
             </div>
@@ -397,10 +376,10 @@ export default function StudyResources() {
 
       {/* Exam Preparation Resources Tab */}
       {activeTab === 'exam' && (
-        <section className="py-5">
+        <section className="py-5" style={{ background: LIGHT_BG_COLOR }}>
           <div className="container">
-            <h2 className="mb-4 text-center fw-bold" style={{ color: PRIMARY_COLOR }}>
-              Exam Preparation Guides
+            <h2 className="mb-5 text-center fw-bold" style={{ color: PRIMARY_COLOR }}>
+                🏆 Exam Preparation Guides
             </h2>
             {/* Exam Filter */}
             <div className="filter-section mb-5 text-center">
@@ -422,55 +401,57 @@ export default function StudyResources() {
                     }`}
                     onClick={() => setSelectedExam(exam)}
                   >
-                    {exam}
+                    **{exam}**
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="row g-4">
+            <div className="row g-5">
               {filteredExamResources.length > 0 ? (
                 filteredExamResources.map((resource) => (
                   <div key={resource.id} className="col-lg-4 col-md-6">
-                    <div className="resource-card card h-100 border-0 shadow-sm overflow-hidden glass-card">
-                      <div className="resource-thumbnail">
+                    <div className="resource-card card h-100 border-0 shadow-lg news-card">
+                       <div className="resource-thumbnail">
                         <img src={resource.thumbnail} alt={resource.title} />
-                        <span className="exam-badge">{resource.exam}</span>
+                        <span className="card-badge">{resource.exam}</span>
                       </div>
-                      <div className="card-body">
-                        <h5 className="card-title mb-3 fw-bold">{resource.title}</h5>
-                        <div className="subjects-list mb-3">
+                      <div className="card-body pb-0">
+                        <h5 className="card-title mb-2 fw-bolder text-dark news-title">{resource.title}</h5>
+                        <div className="subjects-list mb-3 mt-2">
                           {resource.subjects.map((subject, idx) => (
-                            <span key={idx} className="subject-pill-dark">{subject}</span>
+                            <span key={idx} className="subject-pill-dark me-2 mb-1">{subject}</span>
                           ))}
                         </div>
-                        <div className="resource-info">
+                        
+                        <div className="resource-info mb-3">
                           <div className="info-item">
                             <i className="fas fa-book text-muted"></i>
-                            <span>{resource.type}</span>
+                            <span>Content: **{resource.type}**</span>
                           </div>
                           <div className="info-item">
                             <i className="fas fa-hdd text-muted"></i>
-                            <span>{resource.size}</span>
-                          </div>
-                          <div className="info-item">
-                            <i className="fas fa-download" style={{ color: ACCENT_COLOR }}></i>
-                            <span className="fw-bold">{resource.downloads} downloads</span>
+                            <span>Size: {resource.size}</span>
                           </div>
                         </div>
+
                       </div>
-                      <div className="card-footer bg-transparent border-0 pt-0">
-                        <button className="btn btn-primary-custom w-100 mt-2">
-                          <i className="fas fa-download me-2"></i>
-                          Download Now
-                        </button>
+                       <div className="card-footer bg-transparent border-0 pt-0 d-flex justify-content-between align-items-center">
+                         <div className="info-item-footer">
+                            <i className="fas fa-download me-1" style={{ color: ACCENT_COLOR }}></i>
+                            <span className="fw-bold text-dark">{formatDownloads(resource.downloads)} Downloads</span>
+                          </div>
+                          <button className="btn btn-sm btn-primary-custom-light">
+                            <i className="fas fa-cloud-download-alt me-1"></i>
+                            Download
+                          </button>
                       </div>
                     </div>
                   </div>
                 ))
               ) : (
                 <div className="col-12 text-center py-5">
-                  <p className="lead text-muted">No exam resources found.</p>
+                  <p className="lead text-muted"><i className="fas fa-info-circle me-2"></i>No exam resources found.</p>
                 </div>
               )}
             </div>
@@ -480,36 +461,36 @@ export default function StudyResources() {
 
       {/* Previous Year Papers Tab */}
       {activeTab === 'papers' && (
-        <section className="py-5" style={{ background: LIGHT_BG_COLOR }}>
+        <section className="py-5">
           <div className="container">
-            <h2 className="mb-4 text-center fw-bold" style={{ color: PRIMARY_COLOR }}>
-              Previous Year Question Papers
+            <h2 className="mb-5 text-center fw-bold" style={{ color: PRIMARY_COLOR }}>
+              📄 Previous Year Question Papers (PYQs)
             </h2>
             <div className="table-responsive">
-              <table className="table table-hover papers-table shadow-sm">
+              <table className="table table-striped table-bordered papers-table shadow-lg rounded-3 overflow-hidden">
                 <thead style={{ backgroundColor: PRIMARY_COLOR, color: '#fff' }}>
                   <tr>
-                    <th>Exam</th>
-                    <th>Year</th>
-                    <th>Shift/Subject</th>
-                    <th>Size</th>
-                    <th>Downloads</th>
-                    <th>Action</th>
+                    <th className="py-3">Exam</th>
+                    <th className="py-3">Year</th>
+                    <th className="py-3">Shift/Subjects</th>
+                    <th className="py-3">Size</th>
+                    <th className="py-3">Downloads</th>
+                    <th className="py-3">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {previousPapers.map((paper) => (
-                    <tr key={paper.id}>
-                      <td className="fw-bold">{paper.exam}</td>
+                    <tr key={paper.id} className="align-middle">
+                      <td className="fw-bold text-dark">{paper.exam}</td>
                       <td>{paper.year}</td>
                       <td>{paper.shift}</td>
                       <td>{paper.size}</td>
                       <td>
-                        <i className="fas fa-download me-1" style={{ color: ACCENT_COLOR }}></i>
-                        {paper.downloads}
+                        <i className="fas fa-chart-line me-1 text-success"></i>
+                        <span className="fw-semibold">{formatDownloads(paper.downloads)}</span>
                       </td>
                       <td>
-                        <button className="btn btn-sm btn-primary-custom">
+                        <button className="btn btn-sm btn-primary-custom-light">
                           <i className="fas fa-download me-1"></i>
                           Download
                         </button>
@@ -530,6 +511,8 @@ export default function StudyResources() {
           background-color: var(--primary-color);
           border-color: var(--primary-color);
           color: white;
+          border-radius: 25px;
+          padding: 8px 20px;
           transition: all 0.3s ease;
         }
 
@@ -537,7 +520,23 @@ export default function StudyResources() {
           background-color: #5d4e9c; /* थोड़ा गहरा शेड */
           border-color: #5d4e9c;
           color: white;
+          transform: translateY(-2px);
         }
+        
+        /* New button for cards (lighter shade on hover) */
+        .btn-primary-custom-light {
+             background-color: var(--primary-color);
+             border-color: var(--primary-color);
+             color: white;
+             transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom-light:hover {
+            background-color: ${ACCENT_COLOR};
+            border-color: ${ACCENT_COLOR};
+            color: var(--primary-color);
+        }
+
 
         .btn-outline-primary-custom {
           color: var(--primary-color);
@@ -558,120 +557,126 @@ export default function StudyResources() {
           padding: 15px 20px;
           color: #555;
           transition: all 0.3s ease;
-          background: #fff;
+          background: #f1f1f1; /* Light background for non-active */
         }
 
         .resource-tabs .nav-link.active {
           background: var(--primary-color);
           color: white;
           box-shadow: 0 4px 10px rgba(111, 97, 193, 0.4);
+          transform: translateY(-2px);
         }
-
-        /* Resource Card Styling (ग्लास मॉर्फिज्म इफ़ेक्ट हटा दिया गया ताकि इमेज के साथ स्पष्ट दिखे) */
-        .resource-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-          background-color: #fff; /* सामान्य सफेद कार्ड */
+        
+        /* News-like Card Styling */
+        .news-card {
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .resource-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .news-title {
+            font-size: 1.25rem;
+            line-height: 1.4;
+            min-height: 60px; /* Consistent height for titles */
         }
 
         .resource-thumbnail {
           position: relative;
-          height: 200px;
+          height: 220px;
           overflow: hidden;
-          border-radius: 0.25rem 0.25rem 0 0;
+          border-radius: 10px 10px 0 0;
         }
 
         .resource-thumbnail img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+        
+        .news-card:hover .resource-thumbnail img {
+            transform: scale(1.05);
         }
 
-        .class-badge, .exam-badge {
+        .card-badge { /* Class/Exam Badge */
           position: absolute;
           top: 15px;
-          right: 15px;
-          background: var(--accent-color); /* नारंगी रंग */
+          left: 15px; /* Position change to left */
+          background: ${ACCENT_COLOR}; /* नारंगी रंग */
           color: ${PRIMARY_COLOR};
           padding: 5px 15px;
           border-radius: 20px;
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 700;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .subject-tag {
           display: inline-block;
-          background: var(--light-bg-color); 
-          color: var(--primary-color);
+          background: var(--primary-color); 
+          color: white;
           padding: 5px 15px;
           border-radius: 15px;
           font-size: 13px;
           font-weight: 600;
+          margin-bottom: 10px;
         }
         
         .subject-pill-dark {
           background: #e0e0e0;
-          padding: 5px 12px;
-          border-radius: 15px;
-          font-size: 12px;
+          padding: 5px 10px;
+          border-radius: 5px;
+          font-size: 11px;
+          font-weight: 600;
           color: #444;
+          display: inline-block;
         }
 
         .resource-info {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
+          display: flex;
+          flex-direction: column;
           gap: 10px;
-          margin-top: 15px;
-          padding-bottom: 15px;
-          border-bottom: 1px dashed #eee;
+          padding-top: 10px;
+          border-top: 1px dashed #eee;
         }
 
         .info-item {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
           font-size: 14px;
           color: #666;
         }
         
-        .papers-table thead {
-          background-color: var(--primary-color) !important;
+        .info-item-footer {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 15px;
         }
         
-        .papers-table tbody tr:hover {
-            background-color: var(--light-bg-color);
+        /* Table Styling */
+        .papers-table {
+            border-collapse: separate;
+            border-spacing: 0;
         }
+        .papers-table th:first-child { border-top-left-radius: 10px; }
+        .papers-table th:last-child { border-top-right-radius: 10px; }
+        .papers-table td, .papers-table th {
+            padding: 15px;
+            border-color: #f1f1f1;
+        }
+        
+        /* Decorative Circles for Hero Section (Removed, but kept classes empty for reference) */
+        .circle { pointer-events: none; z-index: 0; }
+        .circle-lg { }
+        .circle-md { }
+        .circle-sm { }
 
-        /* Decorative Circles for Hero Section */
-        .circle {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            pointer-events: none; /* ताकि क्लिक इवेंट ब्लॉक न करें */
-            z-index: 0;
-        }
-        .circle-lg {
-            width: 300px;
-            height: 300px;
-        }
-        .circle-md {
-            width: 200px;
-            height: 200px;
-        }
-        .circle-sm {
-            width: 100px;
-            height: 100px;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-          .resource-info {
-            grid-template-columns: 1fr;
-          }
-        }
       `}</style>
     </main>
   );
