@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function Scholarships() {
   const [activeTab, setActiveTab] = useState('scholarships');
@@ -167,72 +167,14 @@ export default function Scholarships() {
 
   return (
     <main className="scholarships-page">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-background">
-          <div className="animated-shapes">
-            <div className="shape shape-1"></div>
-            <div className="shape shape-2"></div>
-            <div className="shape shape-3"></div>
-          </div>
-        </div>
-        
-        <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <i className="fas fa-award"></i>
-              <span>Scholarships & Career Hub</span>
-            </div>
-            
-            <h1 className="hero-title">
-              Fund Your Dreams,
-              <span className="highlight"> Shape Your Future</span>
-            </h1>
-            
-            <p className="hero-description">
-              Discover scholarships worth crores and get expert career guidance 
-              to unlock your full potential
-            </p>
-
-            {/* Quick Stats */}
-            <div className="stats-grid">
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-award"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>{scholarships.length}+</h3>
-                  <p>Active Scholarships</p>
-                </div>
-              </div>
-              
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-rupee-sign"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>₹50 Cr+</h3>
-                  <p>Total Worth</p>
-                </div>
-              </div>
-              
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-users"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>10K+</h3>
-                  <p>Students Helped</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Search Section */}
       <section className="search-section">
         <div className="container">
+          <div className="search-header">
+            <h1>Scholarships & Career Guidance</h1>
+            <p>Discover scholarships and get expert career guidance to shape your future</p>
+          </div>
+          
           <div className="search-wrapper">
             <i className="fas fa-search"></i>
             <input
@@ -266,7 +208,7 @@ export default function Scholarships() {
             <button
               className={`tab-btn ${activeTab === 'career' ? 'active' : ''}`}
               onClick={() => setActiveTab('career')}
-              >
+            >
               <i className="fas fa-briefcase"></i>
               <span>Career Guidance</span>
               <span className="count">{careerArticles.length}</span>
@@ -587,166 +529,28 @@ export default function Scholarships() {
           padding: 0 15px;
         }
 
-        /* Hero Section */
-        .hero-section {
-          position: relative;
-          padding: 120px 0 80px;
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
-          overflow: hidden;
-        }
-
-        .hero-background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        .animated-shapes {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
-
-        .shape {
-          position: absolute;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        .shape-1 {
-          width: 400px;
-          height: 400px;
-          top: -100px;
-          right: -100px;
-          animation: float 20s ease-in-out infinite;
-        }
-
-        .shape-2 {
-          width: 300px;
-          height: 300px;
-          bottom: -50px;
-          left: 10%;
-          animation: float 15s ease-in-out infinite reverse;
-        }
-
-        .shape-3 {
-          width: 200px;
-          height: 200px;
-          top: 50%;
-          left: -50px;
-          animation: float 25s ease-in-out infinite;
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(30px, -30px) rotate(120deg); }
-          66% { transform: translate(-20px, 20px) rotate(240deg); }
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 1;
-          text-align: center;
-          max-width: 900px;
-          margin: 0 auto;
-        }
-
-        .hero-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(255, 255, 255, 0.2);
-          padding: 8px 20px;
-          border-radius: 50px;
-          color: #fff;
-          font-size: 14px;
-          font-weight: 600;
-          margin-bottom: 20px;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .hero-title {
-          font-size: 56px;
-          font-weight: 800;
-          color: #fff;
-          margin-bottom: 20px;
-          line-height: 1.2;
-        }
-
-        .hero-title .highlight {
-          background: linear-gradient(90deg, #FFD700, #FFA500);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .hero-description {
-          font-size: 18px;
-          color: rgba(255, 255, 255, 0.9);
-          margin-bottom: 50px;
-          line-height: 1.6;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 30px;
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .stat-card {
-          background: rgba(255, 255, 255, 0.15);
-          padding: 30px;
-          border-radius: 20px;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-          background: rgba(255, 255, 255, 0.25);
-          transform: translateY(-5px);
-        }
-
-        .stat-icon {
-          width: 60px;
-          height: 60px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 15px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 24px;
-          color: #fff;
-        }
-
-        .stat-info h3 {
-          font-size: 32px;
-          font-weight: 700;
-          color: #fff;
-          margin-bottom: 5px;
-        }
-
-        .stat-info p {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.8);
-        }
-
         /* Search Section */
         .search-section {
-          padding: 40px 0;
           background: #fff;
-          margin-top: -30px;
-          position: relative;
-          z-index: 2;
+          padding: 40px 0;
+          border-bottom: 1px solid #e9ecef;
+        }
+
+        .search-header {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        .search-header h1 {
+          font-size: 36px;
+          font-weight: 700;
+          color: #2d3436;
+          margin-bottom: 10px;
+        }
+
+        .search-header p {
+          font-size: 16px;
+          color: #636e72;
         }
 
         .search-wrapper {
@@ -1367,6 +1171,10 @@ export default function Scholarships() {
           color: #636e72;
         }
 
+        .mt-5 {
+          margin-top: 80px;
+        }
+
         /* Career Articles Grid */
         .career-articles-grid {
           display: grid;
@@ -1616,15 +1424,6 @@ export default function Scholarships() {
         }
 
         @media (max-width: 992px) {
-          .hero-title {
-            font-size: 42px;
-          }
-
-          .stats-grid {
-            grid-template-columns: 1fr;
-            max-width: 400px;
-          }
-
           .process-steps {
             flex-direction: column;
           }
@@ -1639,16 +1438,16 @@ export default function Scholarships() {
         }
 
         @media (max-width: 768px) {
-          .hero-section {
-            padding: 80px 0 60px;
+          .search-section {
+            padding: 30px 0;
           }
 
-          .hero-title {
-            font-size: 32px;
+          .search-header h1 {
+            font-size: 28px;
           }
 
-          .hero-description {
-            font-size: 16px;
+          .search-header p {
+            font-size: 14px;
           }
 
           .tabs-wrapper {
@@ -1705,10 +1504,6 @@ export default function Scholarships() {
         }
 
         @media (max-width: 576px) {
-          .hero-title {
-            font-size: 28px;
-          }
-
           .search-wrapper input {
             padding: 15px 50px;
             font-size: 14px;

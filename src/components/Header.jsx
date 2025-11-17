@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
@@ -139,9 +139,11 @@ const Header = () => {
 
               {/* Header Actions */}
               <div className="header-actions">
-                <button className="search-btn" onClick={toggleSearch} aria-label="Search">
-                  <i className="fas fa-search"></i>
-                </button>
+                <Link to="/admin/login" className="admin-btn" aria-label="Admin Login">
+                  <i className="fas fa-user-shield"></i>
+                  <span className="admin-text">Admin</span>
+                </Link>
+
                 
                 <div className="social-links d-none d-xl-flex">
                   <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
@@ -233,6 +235,11 @@ const Header = () => {
                 <i className="fas fa-envelope"></i> Contact
               </Link>
             </li>
+            <li>
+              <Link to="/admin/login" onClick={() => setIsMobileMenuOpen(false)}>
+                <i className="fas fa-user-shield"></i> Admin Login
+              </Link>
+            </li>
           </ul>
 
           <div className="mobile-social">
@@ -322,13 +329,6 @@ const Header = () => {
         }
 
         /* Top Bar */
-        {/* .header-top {
-          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-          padding: 10px 0;
-          color: #fff;
-          font-size: 13px;
-        } */}
-
         .top-content {
           display: flex;
           justify-content: space-between;
@@ -343,18 +343,6 @@ const Header = () => {
           flex: 1;
           overflow: hidden;
         }
-
-        {/* .trending-badge {
-          background: #ff4757;
-          padding: 5px 12px;
-          border-radius: 20px;
-          font-weight: 600;
-          font-size: 11px;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          white-space: nowrap;
-        } */}
 
         .trending-text {
           white-space: nowrap;
@@ -536,6 +524,32 @@ const Header = () => {
           display: flex;
           align-items: center;
           gap: 15px;
+        }
+
+        .admin-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 20px;
+          border-radius: 25px;
+          border: none;
+          background: linear-gradient(135deg, #ec0e0eff 0%, #f5576c 100%);
+          color: #fff;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: 14px;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+          text-decoration: none;
+        }
+
+        .admin-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .admin-btn i {
+          font-size: 16px;
         }
 
         .search-btn {
@@ -915,6 +929,18 @@ const Header = () => {
           .logo-tagline {
             font-size: 10px;
           }
+
+          .admin-text {
+            display: none;
+          }
+
+          .admin-btn {
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border-radius: 50%;
+            justify-content: center;
+          }
         }
 
         @media (max-width: 768px) {
@@ -924,15 +950,6 @@ const Header = () => {
 
           .top-content {
             font-size: 11px;
-          }
-
-          .trending-badge {
-            font-size: 10px;
-            padding: 4px 8px;
-          }
-
-          .top-right .date-text {
-            display: none;
           }
 
           .search-content h2 {
@@ -950,7 +967,8 @@ const Header = () => {
           }
 
           .search-btn,
-          .mobile-toggle {
+          .mobile-toggle,
+          .admin-btn {
             width: 38px;
             height: 38px;
           }

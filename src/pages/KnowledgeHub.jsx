@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function KnowledgeHub() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -129,78 +129,28 @@ export default function KnowledgeHub() {
 
   return (
     <main className="knowledge-hub">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-background">
-          <div className="hero-shapes">
-            <div className="shape shape-1"></div>
-            <div className="shape shape-2"></div>
-            <div className="shape shape-3"></div>
-          </div>
-        </div>
+      {/* Header Section */}
+      <section className="header-section">
         <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <i className="fas fa-lightbulb"></i>
-              <span>Knowledge Hub</span>
-            </div>
-            <h1 className="hero-title">
-              Unlock Your Potential with
-              <span className="highlight"> Expert Insights</span>
-            </h1>
-            <p className="hero-description">
-              Explore comprehensive guides, study tips, career advice, and inspirational stories 
-              to help you succeed in your academic journey
-            </p>
-            
-            {/* Search Bar */}
-            <div className="search-container">
-              <div className="search-wrapper">
-                <i className="fas fa-search"></i>
-                <input
-                  type="text"
-                  placeholder="Search articles, topics, or tags..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                {searchQuery && (
-                  <button className="clear-btn" onClick={() => setSearchQuery('')}>
-                    <i className="fas fa-times"></i>
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Quick Stats */}
-            <div className="quick-stats">
-              <div className="stat-item">
-                <div className="stat-icon">
-                  <i className="fas fa-book-open"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>100+</h3>
-                  <p>Articles</p>
-                </div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-icon">
-                  <i className="fas fa-users"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>50K+</h3>
-                  <p>Readers</p>
-                </div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-icon">
-                  <i className="fas fa-clock"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>Daily</h3>
-                  <p>Updates</p>
-                </div>
-              </div>
-            </div>
+          <div className="header-content">
+            <h1>Knowledge Hub</h1>
+            <p>Expert insights, study tips, and inspiring stories to help you succeed</p>
+          </div>
+          
+          {/* Search Bar */}
+          <div className="search-wrapper">
+            <i className="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="Search articles, topics, or tags..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+              <button className="clear-btn" onClick={() => setSearchQuery('')}>
+                <i className="fas fa-times"></i>
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -208,21 +158,17 @@ export default function KnowledgeHub() {
       {/* Category Filter */}
       <section className="category-section">
         <div className="container">
-          <div className="category-grid">
+          <div className="category-scroll">
             {categories.map(category => (
-              <div
+              <button
                 key={category.id}
-                className={`category-card ${selectedCategory === category.id ? 'active' : ''}`}
+                className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
                 onClick={() => setSelectedCategory(category.id)}
               >
-                <div className="category-icon">
-                  <i className={category.icon}></i>
-                </div>
-                <div className="category-info">
-                  <h3>{category.name}</h3>
-                  <span className="category-count">{category.count} articles</span>
-                </div>
-              </div>
+                <i className={category.icon}></i>
+                <span>{category.name}</span>
+                <span className="count">({category.count})</span>
+              </button>
             ))}
           </div>
         </div>
@@ -233,12 +179,10 @@ export default function KnowledgeHub() {
         <section className="featured-section">
           <div className="container">
             <div className="section-header">
-              <div className="header-content">
-                <h2 className="section-title">
-                  <i className="fas fa-fire"></i> Featured Articles
-                </h2>
-                <p className="section-subtitle">Must-read articles handpicked by our experts</p>
-              </div>
+              <h2>
+                <i className="fas fa-fire"></i> Featured Articles
+              </h2>
+              <p>Must-read articles handpicked by our experts</p>
             </div>
 
             <div className="featured-grid">
@@ -247,32 +191,32 @@ export default function KnowledgeHub() {
                   <div className="featured-badge">
                     <i className="fas fa-star"></i> Featured
                   </div>
-                  <div className="featured-emoji">{article.image}</div>
-                  <div className="featured-content">
-                    <div className="article-meta">
-                      <span className="category-badge">{categories.find(c => c.id === article.category)?.name}</span>
+                  <div className="card-image">
+                    <div className="emoji-icon">{article.image}</div>
+                  </div>
+                  <div className="card-content">
+                    <div className="meta-info">
+                      <span className="category">{categories.find(c => c.id === article.category)?.name}</span>
                       <span className="read-time">
                         <i className="far fa-clock"></i> {article.readTime}
                       </span>
                     </div>
-                    <h3 className="article-title">{article.title}</h3>
-                    <p className="article-excerpt">{article.excerpt}</p>
-                    <div className="article-tags">
+                    <h3>{article.title}</h3>
+                    <p>{article.excerpt}</p>
+                    <div className="tags">
                       {article.tags.map((tag, index) => (
                         <span key={index} className="tag">#{tag}</span>
                       ))}
                     </div>
-                    <div className="article-footer">
-                      <div className="author-info">
-                        <div className="author-avatar">
-                          {article.author.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="author-name">{article.author}</p>
-                          <p className="article-date">{article.date}</p>
+                    <div className="card-footer">
+                      <div className="author">
+                        <div className="avatar">{article.author.charAt(0)}</div>
+                        <div className="author-details">
+                          <span className="name">{article.author}</span>
+                          <span className="date">{article.date}</span>
                         </div>
                       </div>
-                      <button className="read-more-btn">
+                      <button className="read-btn">
                         Read More <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
@@ -288,14 +232,10 @@ export default function KnowledgeHub() {
       <section className="articles-section">
         <div className="container">
           <div className="section-header">
-            <div className="header-content">
-              <h2 className="section-title">
-                {selectedCategory === 'all' ? 'Latest Articles' : categories.find(c => c.id === selectedCategory)?.name}
-              </h2>
-              <p className="section-subtitle">
-                {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} found
-              </p>
-            </div>
+            <h2>
+              {selectedCategory === 'all' ? 'Latest Articles' : categories.find(c => c.id === selectedCategory)?.name}
+            </h2>
+            <p>{filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} found</p>
           </div>
 
           {filteredArticles.length === 0 ? (
@@ -306,39 +246,39 @@ export default function KnowledgeHub() {
               <h3>No articles found</h3>
               <p>Try adjusting your search or category filter</p>
               <button className="reset-btn" onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}>
-                Reset Filters
+                <i className="fas fa-redo"></i> Reset Filters
               </button>
             </div>
           ) : (
             <div className="articles-grid">
               {filteredArticles.map(article => (
                 <div key={article.id} className="article-card">
-                  <div className="article-emoji">{article.image}</div>
-                  <div className="article-content">
-                    <div className="article-meta">
-                      <span className="category-badge">{categories.find(c => c.id === article.category)?.name}</span>
+                  <div className="card-image">
+                    <div className="emoji-icon">{article.image}</div>
+                  </div>
+                  <div className="card-content">
+                    <div className="meta-info">
+                      <span className="category">{categories.find(c => c.id === article.category)?.name}</span>
                       <span className="read-time">
                         <i className="far fa-clock"></i> {article.readTime}
                       </span>
                     </div>
-                    <h3 className="article-title">{article.title}</h3>
-                    <p className="article-excerpt">{article.excerpt}</p>
-                    <div className="article-tags">
+                    <h3>{article.title}</h3>
+                    <p>{article.excerpt}</p>
+                    <div className="tags">
                       {article.tags.map((tag, index) => (
                         <span key={index} className="tag">#{tag}</span>
                       ))}
                     </div>
-                    <div className="article-footer">
-                      <div className="author-info">
-                        <div className="author-avatar">
-                          {article.author.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="author-name">{article.author}</p>
-                          <p className="article-date">{article.date}</p>
+                    <div className="card-footer">
+                      <div className="author">
+                        <div className="avatar">{article.author.charAt(0)}</div>
+                        <div className="author-details">
+                          <span className="name">{article.author}</span>
+                          <span className="date">{article.date}</span>
                         </div>
                       </div>
-                      <button className="read-more-btn">
+                      <button className="read-btn">
                         Read <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
@@ -389,116 +329,28 @@ export default function KnowledgeHub() {
           padding: 0 15px;
         }
 
-        /* Hero Section */
-        .hero-section {
-          position: relative;
-          padding: 120px 0 80px;
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
-          overflow: hidden;
+        /* Header Section */
+        .header-section {
+          background: #fff;
+          padding: 40px 0;
+          border-bottom: 1px solid #e9ecef;
         }
 
-        .hero-background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-        }
-
-        .hero-shapes {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
-
-        .shape {
-          position: absolute;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        .shape-1 {
-          width: 400px;
-          height: 400px;
-          top: -100px;
-          right: -100px;
-          animation: float 20s ease-in-out infinite;
-        }
-
-        .shape-2 {
-          width: 300px;
-          height: 300px;
-          bottom: -50px;
-          left: 10%;
-          animation: float 15s ease-in-out infinite reverse;
-        }
-
-        .shape-3 {
-          width: 200px;
-          height: 200px;
-          top: 50%;
-          left: -50px;
-          animation: float 25s ease-in-out infinite;
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(30px, -30px) rotate(120deg); }
-          66% { transform: translate(-20px, 20px) rotate(240deg); }
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 1;
+        .header-content {
           text-align: center;
-          max-width: 900px;
-          margin: 0 auto;
+          margin-bottom: 30px;
         }
 
-        .hero-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(255, 255, 255, 0.2);
-          padding: 8px 20px;
-          border-radius: 50px;
-          color: #fff;
-          font-size: 14px;
-          font-weight: 600;
-          margin-bottom: 20px;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+        .header-content h1 {
+          font-size: 36px;
+          font-weight: 700;
+          color: #2d3436;
+          margin-bottom: 10px;
         }
 
-        .hero-title {
-          font-size: 56px;
-          font-weight: 800;
-          color: #fff;
-          margin-bottom: 20px;
-          line-height: 1.2;
-        }
-
-        .hero-title .highlight {
-          background: linear-gradient(90deg, #FFD700, #FFA500);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .hero-description {
-          font-size: 18px;
-          color: rgba(255, 255, 255, 0.9);
-          margin-bottom: 40px;
-          line-height: 1.6;
-          max-width: 700px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        /* Search Container */
-        .search-container {
-          margin-bottom: 50px;
+        .header-content p {
+          font-size: 16px;
+          color: #636e72;
         }
 
         .search-wrapper {
@@ -509,40 +361,38 @@ export default function KnowledgeHub() {
 
         .search-wrapper i {
           position: absolute;
-          left: 25px;
+          left: 20px;
           top: 50%;
           transform: translateY(-50%);
-          color: #6F61C1;
-          font-size: 18px;
+          color: #667eea;
+          font-size: 16px;
         }
 
         .search-wrapper input {
           width: 100%;
-          padding: 18px 60px 18px 60px;
-          border: none;
-          border-radius: 50px;
-          font-size: 16px;
-          background: #fff;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+          padding: 14px 50px;
+          border: 2px solid #e9ecef;
+          border-radius: 12px;
+          font-size: 15px;
           outline: none;
           transition: all 0.3s ease;
         }
 
         .search-wrapper input:focus {
-          box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-          transform: translateY(-2px);
+          border-color: #667eea;
+          box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
 
         .clear-btn {
           position: absolute;
-          right: 10px;
+          right: 8px;
           top: 50%;
           transform: translateY(-50%);
-          width: 35px;
-          height: 35px;
+          width: 32px;
+          height: 32px;
           border: none;
           background: #f1f3f5;
-          border-radius: 50%;
+          border-radius: 8px;
           cursor: pointer;
           display: flex;
           align-items: center;
@@ -553,142 +403,92 @@ export default function KnowledgeHub() {
 
         .clear-btn:hover {
           background: #e9ecef;
-          color: #333;
-        }
-
-        /* Quick Stats */
-        .quick-stats {
-          display: flex;
-          justify-content: center;
-          gap: 60px;
-          flex-wrap: wrap;
-        }
-
-        .stat-item {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-        }
-
-        .stat-icon {
-          width: 60px;
-          height: 60px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 15px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-size: 24px;
-          backdrop-filter: blur(10px);
-        }
-
-        .stat-info h3 {
-          font-size: 32px;
-          font-weight: 700;
-          color: #fff;
-          margin-bottom: 5px;
-        }
-
-        .stat-info p {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.8);
         }
 
         /* Category Section */
         .category-section {
-          padding: 60px 0;
           background: #fff;
-          margin-top: -30px;
-          position: relative;
-          z-index: 2;
+          padding: 30px 0;
+          border-bottom: 1px solid #e9ecef;
         }
 
-        .category-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 20px;
+        .category-scroll {
+          display: flex;
+          gap: 12px;
+          overflow-x: auto;
+          padding-bottom: 10px;
         }
 
-        .category-card {
+        .category-scroll::-webkit-scrollbar {
+          height: 6px;
+        }
+
+        .category-scroll::-webkit-scrollbar-track {
+          background: #f1f3f5;
+          border-radius: 10px;
+        }
+
+        .category-scroll::-webkit-scrollbar-thumb {
+          background: #667eea;
+          border-radius: 10px;
+        }
+
+        .category-btn {
           display: flex;
           align-items: center;
-          gap: 15px;
-          padding: 25px;
-          background: #fff;
+          gap: 8px;
+          padding: 10px 20px;
+          background: #f8f9fa;
           border: 2px solid #e9ecef;
-          border-radius: 15px;
+          border-radius: 25px;
           cursor: pointer;
           transition: all 0.3s ease;
+          white-space: nowrap;
+          font-size: 14px;
+          font-weight: 500;
+          color: #495057;
         }
 
-        .category-card:hover {
-          border-color: #6F61C1;
-          transform: translateY(-5px);
-          box-shadow: 0 10px 30px rgba(111, 97, 193, 0.15);
+        .category-btn:hover {
+          background: rgba(102, 126, 234, 0.05);
+          border-color: #667eea;
+          color: #667eea;
         }
 
-        .category-card.active {
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
-          border-color: #6F61C1;
+        .category-btn.active {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border-color: #667eea;
           color: #fff;
         }
 
-        .category-icon {
-          width: 50px;
-          height: 50px;
-          background: rgba(111, 97, 193, 0.1);
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 20px;
-          color: #6F61C1;
-          transition: all 0.3s ease;
-        }
-
-        .category-card.active .category-icon {
-          background: rgba(255, 255, 255, 0.2);
-          color: #fff;
-        }
-
-        .category-info h3 {
-          font-size: 15px;
-          font-weight: 600;
-          margin-bottom: 5px;
-        }
-
-        .category-count {
-          font-size: 13px;
-          opacity: 0.7;
+        .category-btn .count {
+          font-size: 12px;
+          opacity: 0.8;
         }
 
         /* Section Header */
         .section-header {
+          text-align: center;
           margin-bottom: 40px;
         }
 
-        .header-content {
-          text-align: center;
-        }
-
-        .section-title {
-          font-size: 36px;
+        .section-header h2 {
+          font-size: 32px;
           font-weight: 700;
           color: #2d3436;
-          margin-bottom: 10px;
+          margin-bottom: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 12px;
+          gap: 10px;
         }
 
-        .section-title i {
-          color: #FF6B6B;
+        .section-header h2 i {
+          color: #ff6b6b;
         }
 
-        .section-subtitle {
-          font-size: 16px;
+        .section-header p {
+          font-size: 15px;
           color: #636e72;
         }
 
@@ -705,28 +505,30 @@ export default function KnowledgeHub() {
         }
 
         .featured-card {
-          position: relative;
           background: #fff;
           border-radius: 20px;
           overflow: hidden;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
           transition: all 0.3s ease;
+          position: relative;
+          border: 2px solid transparent;
         }
 
         .featured-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+          transform: translateY(-8px);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+          border-color: #667eea;
         }
 
         .featured-badge {
           position: absolute;
-          top: 20px;
-          right: 20px;
+          top: 15px;
+          right: 15px;
           background: linear-gradient(135deg, #FFD700, #FFA500);
           color: #fff;
-          padding: 8px 15px;
-          border-radius: 50px;
-          font-size: 12px;
+          padding: 6px 12px;
+          border-radius: 20px;
+          font-size: 11px;
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -734,15 +536,138 @@ export default function KnowledgeHub() {
           z-index: 1;
         }
 
-        .featured-emoji {
-          font-size: 100px;
+        .card-image {
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+          padding: 40px;
           text-align: center;
-          padding: 40px 0 20px;
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
         }
 
-        .featured-content {
-          padding: 30px;
+        .emoji-icon {
+          font-size: 80px;
+        }
+
+        .card-content {
+          padding: 25px;
+        }
+
+        .meta-info {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 15px;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .category {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #fff;
+          padding: 5px 12px;
+          border-radius: 15px;
+          font-size: 11px;
+          font-weight: 600;
+        }
+
+        .read-time {
+          font-size: 12px;
+          color: #636e72;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .card-content h3 {
+          font-size: 20px;
+          font-weight: 700;
+          color: #2d3436;
+          margin-bottom: 12px;
+          line-height: 1.4;
+        }
+
+        .card-content p {
+          font-size: 14px;
+          color: #636e72;
+          line-height: 1.6;
+          margin-bottom: 15px;
+        }
+
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 20px;
+        }
+
+        .tag {
+          background: #f1f3f5;
+          padding: 4px 10px;
+          border-radius: 12px;
+          font-size: 11px;
+          color: #495057;
+        }
+
+        .card-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 20px;
+          border-top: 1px solid #e9ecef;
+        }
+
+        .author {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .avatar {
+          width: 36px;
+          height: 36px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-weight: 600;
+          font-size: 14px;
+        }
+
+        .author-details {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .name {
+          font-size: 13px;
+          font-weight: 600;
+          color: #2d3436;
+        }
+
+        .date {
+          font-size: 11px;
+          color: #636e72;
+        }
+
+        .read-btn {
+          background: transparent;
+          color: #667eea;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-weight: 600;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+          font-size: 13px;
+        }
+
+        .read-btn:hover {
+          background: rgba(102, 126, 234, 0.1);
+          gap: 12px;
         }
 
         /* Articles Section */
@@ -762,143 +687,13 @@ export default function KnowledgeHub() {
           overflow: hidden;
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
           transition: all 0.3s ease;
-          display: flex;
-          flex-direction: column;
+          border: 2px solid transparent;
         }
 
         .article-card:hover {
           transform: translateY(-8px);
           box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .article-emoji {
-          font-size: 80px;
-          text-align: center;
-          padding: 40px 0 20px;
-          background: linear-gradient(135deg, rgba(111, 97, 193, 0.1) 0%, rgba(139, 95, 191, 0.1) 100%);
-        }
-
-        .article-content {
-          padding: 25px;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .article-meta {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 15px;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-
-        .category-badge {
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
-          color: #fff;
-          padding: 6px 12px;
-          border-radius: 20px;
-          font-size: 12px;
-          font-weight: 600;
-        }
-
-        .read-time {
-          font-size: 13px;
-          color: #636e72;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-
-        .article-title {
-          font-size: 20px;
-          font-weight: 700;
-          color: #2d3436;
-          margin-bottom: 12px;
-          line-height: 1.4;
-        }
-
-        .article-excerpt {
-          font-size: 14px;
-          color: #636e72;
-          line-height: 1.6;
-          margin-bottom: 15px;
-          flex: 1;
-        }
-
-        .article-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 20px;
-        }
-
-        .tag {
-          background: #f1f3f5;
-          padding: 5px 12px;
-          border-radius: 15px;
-          font-size: 12px;
-          color: #495057;
-        }
-
-        .article-footer {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding-top: 20px;
-          border-top: 1px solid #e9ecef;
-        }
-
-        .author-info {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .author-avatar {
-          width: 40px;
-          height: 40px;
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-weight: 600;
-          font-size: 16px;
-        }
-
-        .author-name {
-          font-size: 14px;
-          font-weight: 600;
-          color: #2d3436;
-          margin-bottom: 3px;
-        }
-
-        .article-date {
-          font-size: 12px;
-          color: #636e72;
-        }
-
-        .read-more-btn {
-          background: transparent;
-          color: #6F61C1;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 20px;
-          font-weight: 600;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          transition: all 0.3s ease;
-          font-size: 14px;
-        }
-
-        .read-more-btn:hover {
-          background: rgba(111, 97, 193, 0.1);
-          gap: 12px;
+          border-color: #667eea;
         }
 
         /* No Results */
@@ -910,14 +705,14 @@ export default function KnowledgeHub() {
         .no-results-icon {
           width: 100px;
           height: 100px;
-          background: linear-gradient(135deg, rgba(111, 97, 193, 0.1) 0%, rgba(139, 95, 191, 0.1) 100%);
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           margin: 0 auto 20px;
           font-size: 40px;
-          color: #6F61C1;
+          color: #667eea;
         }
 
         .no-results h3 {
@@ -933,20 +728,23 @@ export default function KnowledgeHub() {
         }
 
         .reset-btn {
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           color: #fff;
           border: none;
           padding: 12px 30px;
           border-radius: 25px;
           font-weight: 600;
           cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
           transition: all 0.3s ease;
-          font-size: 15px;
+          font-size: 14px;
         }
 
         .reset-btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 20px rgba(111, 97, 193, 0.3);
+          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         /* Newsletter Section */
@@ -956,9 +754,9 @@ export default function KnowledgeHub() {
         }
 
         .newsletter-card {
-          background: linear-gradient(135deg, #6F61C1 0%, #8B5FBF 100%);
-          border-radius: 30px;
-          padding: 60px 40px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border-radius: 25px;
+          padding: 50px 40px;
           display: flex;
           align-items: center;
           gap: 40px;
@@ -977,31 +775,19 @@ export default function KnowledgeHub() {
           border-radius: 50%;
         }
 
-        .newsletter-card::after {
-          content: '';
-          position: absolute;
-          bottom: -30%;
-          left: -5%;
-          width: 300px;
-          height: 300px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 50%;
-        }
-
         .newsletter-icon {
-          width: 100px;
-          height: 100px;
+          width: 90px;
+          height: 90px;
           background: rgba(255, 255, 255, 0.2);
-          border-radius: 20px;
+          border-radius: 18px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 40px;
+          font-size: 36px;
           color: #fff;
           flex-shrink: 0;
           position: relative;
           z-index: 1;
-          backdrop-filter: blur(10px);
         }
 
         .newsletter-content {
@@ -1011,79 +797,67 @@ export default function KnowledgeHub() {
         }
 
         .newsletter-content h2 {
-          font-size: 32px;
+          font-size: 28px;
           color: #fff;
-          margin-bottom: 10px;
+          margin-bottom: 8px;
           font-weight: 700;
         }
 
         .newsletter-content p {
-          font-size: 16px;
+          font-size: 15px;
           color: rgba(255, 255, 255, 0.9);
-          margin-bottom: 25px;
+          margin-bottom: 20px;
         }
 
         .newsletter-form {
           display: flex;
-          gap: 15px;
-          max-width: 600px;
+          gap: 12px;
+          max-width: 550px;
         }
 
         .newsletter-form input {
           flex: 1;
-          padding: 15px 25px;
+          padding: 14px 20px;
           border: none;
-          border-radius: 50px;
-          font-size: 15px;
+          border-radius: 12px;
+          font-size: 14px;
           outline: none;
-          background: rgba(255, 255, 255, 0.9);
         }
 
         .newsletter-form button {
           background: #fff;
-          color: #6F61C1;
+          color: #667eea;
           border: none;
-          padding: 15px 35px;
-          border-radius: 50px;
+          padding: 14px 28px;
+          border-radius: 12px;
           font-weight: 700;
           cursor: pointer;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 8px;
           transition: all 0.3s ease;
           white-space: nowrap;
-          font-size: 15px;
+          font-size: 14px;
         }
 
         .newsletter-form button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         /* Responsive Design */
         @media (max-width: 1200px) {
-          .featured-grid {
-            grid-template-columns: 1fr;
-          }
-
+          .featured-grid,
           .articles-grid {
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
           }
         }
 
         @media (max-width: 992px) {
-          .hero-title {
-            font-size: 42px;
-          }
-
-          .category-grid {
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-          }
-
           .newsletter-card {
             flex-direction: column;
             text-align: center;
-            padding: 50px 30px;
+            padding: 40px 30px;
           }
 
           .newsletter-form {
@@ -1092,35 +866,26 @@ export default function KnowledgeHub() {
         }
 
         @media (max-width: 768px) {
-          .hero-section {
-            padding: 80px 0 60px;
+          .header-section {
+            padding: 30px 0;
           }
 
-          .hero-title {
-            font-size: 36px;
-          }
-
-          .hero-description {
-            font-size: 16px;
-          }
-
-          .quick-stats {
-            gap: 30px;
-          }
-
-          .stat-item {
-            flex-direction: column;
-            text-align: center;
-          }
-
-          .section-title {
+          .header-content h1 {
             font-size: 28px;
-            flex-direction: column;
-            gap: 8px;
           }
 
-          .category-grid {
-            grid-template-columns: 1fr;
+          .header-content p {
+            font-size: 14px;
+          }
+
+          .category-section {
+            padding: 20px 0;
+          }
+
+          .section-header h2 {
+            font-size: 24px;
+            flex-direction: column;
+            gap: 6px;
           }
 
           .featured-grid,
@@ -1128,8 +893,17 @@ export default function KnowledgeHub() {
             grid-template-columns: 1fr;
           }
 
+          .featured-section,
+          .articles-section {
+            padding: 40px 0;
+          }
+
+          .newsletter-section {
+            padding: 50px 0;
+          }
+
           .newsletter-content h2 {
-            font-size: 24px;
+            font-size: 22px;
           }
 
           .newsletter-form {
@@ -1142,46 +916,25 @@ export default function KnowledgeHub() {
         }
 
         @media (max-width: 576px) {
-          .hero-title {
-            font-size: 28px;
-          }
-
           .search-wrapper input {
-            padding: 15px 50px 15px 50px;
+            padding: 12px 45px;
             font-size: 14px;
           }
 
-          .quick-stats {
-            flex-direction: column;
-            gap: 20px;
-          }
-
-          .category-section {
-            padding: 40px 0;
-          }
-
-          .featured-section,
-          .articles-section {
-            padding: 40px 0;
-          }
-
-          .article-card {
-            border-radius: 15px;
-          }
-
-          .newsletter-section {
-            padding: 50px 0;
+          .category-btn {
+            padding: 8px 16px;
+            font-size: 13px;
           }
 
           .newsletter-card {
-            padding: 40px 20px;
+            padding: 30px 20px;
             border-radius: 20px;
           }
 
           .newsletter-icon {
-            width: 80px;
-            height: 80px;
-            font-size: 32px;
+            width: 70px;
+            height: 70px;
+            font-size: 28px;
           }
         }
 
@@ -1198,61 +951,8 @@ export default function KnowledgeHub() {
         }
 
         .article-card,
-        .featured-card,
-        .category-card {
+        .featured-card {
           animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* Loading States */
-        .loading {
-          text-align: center;
-          padding: 60px 20px;
-        }
-
-        .loading-spinner {
-          width: 50px;
-          height: 50px;
-          border: 4px solid #f1f3f5;
-          border-top-color: #6F61C1;
-          border-radius: 50%;
-          margin: 0 auto;
-          animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-
-        /* Hover Effects */
-        .article-card:hover .article-title {
-          color: #6F61C1;
-        }
-
-        .featured-card:hover .article-title {
-          color: #6F61C1;
-        }
-
-        /* Focus States */
-        .search-wrapper input:focus,
-        .newsletter-form input:focus {
-          outline: 3px solid rgba(111, 97, 193, 0.3);
-        }
-
-        button:focus,
-        .category-card:focus {
-          outline: 3px solid rgba(111, 97, 193, 0.5);
-          outline-offset: 2px;
-        }
-
-        /* Smooth Scrolling */
-        html {
-          scroll-behavior: smooth;
-        }
-
-        /* Selection Color */
-        ::selection {
-          background: #6F61C1;
-          color: #fff;
         }
       `}</style>
     </main>

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const PRIMARY_COLOR = '#6F61C1'; // आपका गहरा बैंगनी/नीला रंग
 const ACCENT_COLOR = '#FFC107'; // हाइलाइट के लिए नारंगी

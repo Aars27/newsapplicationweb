@@ -1,5 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 
 // Colors from previous components for consistency
 const PRIMARY_COLOR = '#6F61C1'; // गहरा बैंगनी/नीला रंग
@@ -69,12 +67,12 @@ export default function Contact() {
           
           {/* Note: The commented out Google Maps section has been removed for a clean React component. 
                If you want to integrate a map, you should use a React library like react-google-maps. */}
-
+{/* 
           <div className="row">
             <div className="col-12">
               <h2 className="contact-title">Get in Touch</h2>
             </div>
-          </div>
+          </div> */}
 
           <div className="row">
             

@@ -148,9 +148,176 @@ const CategoryBox = ({ category }) => (
   </div>
 );
 
+// Full News Modal Component
+const NewsModal = ({ news, onClose, relatedNews }) => {
+  if (!news) return null;
+
+  return (
+    <div className="modal d-block" style={{ backgroundColor: 'rgba(0,0,0,0.8)' }} onClick={onClose}>
+      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-content border-0 shadow-lg">
+          {/* Header */}
+          <div className="modal-header border-0 pb-0">
+            <button type="button" className="btn-close" onClick={onClose}></button>
+          </div>
+
+          {/* Body */}
+          <div className="modal-body p-0">
+            {/* Featured Image */}
+            <img
+              src={news.image}
+              alt={news.title}
+              className="w-100"
+              style={{ maxHeight: '400px', objectFit: 'cover' }}
+              onError={(e) => e.target.src = 'https://via.placeholder.com/1200x400/FF4458/ffffff?text=News'}
+            />
+
+            <div className="p-4 p-md-5">
+              {/* Category & Meta */}
+              <div className="d-flex align-items-center justify-content-between mb-3">
+                <span className="badge px-3 py-2" style={{ backgroundColor: news.categoryColor || theme.primary, fontSize: '0.8rem' }}>
+                  {news.category || 'News'}
+                </span>
+                <div className="d-flex align-items-center gap-3 text-muted" style={{ fontSize: '0.9rem' }}>
+                  <span className="d-flex align-items-center">
+                    <Clock size={16} className="me-2" />
+                    {news.date}
+                  </span>
+                  <span className="d-flex align-items-center">
+                    <Eye size={16} className="me-2" />
+                    {news.views}
+                  </span>
+                  {news.comments && (
+                    <span className="d-flex align-items-center">
+                      <MessageCircle size={16} className="me-2" />
+                      {news.comments}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Title */}
+              <h2 className="fw-bold mb-4" style={{ color: theme.text, lineHeight: '1.4' }}>
+                {news.title}
+              </h2>
+
+              {/* Author & Date */}
+              {news.author && (
+                <div className="d-flex align-items-center gap-3 mb-4 pb-4 border-bottom">
+                  <div className="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style={{ width: '50px', height: '50px' }}>
+                    <span className="text-white fw-bold">{news.author.charAt(0)}</span>
+                  </div>
+                  <div>
+                    <div className="fw-bold" style={{ color: theme.text }}>{news.author}</div>
+                    <small className="text-muted">Published on {news.date}</small>
+                  </div>
+                </div>
+              )}
+
+              {/* Content */}
+              <div className="article-content mb-5" style={{ fontSize: '1.1rem', lineHeight: '1.8', color: theme.text }}>
+                {news.fullContent ? (
+                  <div dangerouslySetInnerHTML={{ __html: news.fullContent }} />
+                ) : (
+                  <>
+                    <p className="mb-4">
+                      {news.excerpt || news.content || 'This is a comprehensive news article covering all aspects of the story. The article provides detailed information, expert opinions, and thorough analysis of the situation.'}
+                    </p>
+                    <p className="mb-4">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                    <p className="mb-4">
+                      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <h4 className="fw-bold mt-5 mb-3" style={{ color: theme.text }}>Key Highlights</h4>
+                    <ul className="mb-4" style={{ lineHeight: '2' }}>
+                      <li>Detailed analysis of the current situation and its implications</li>
+                      <li>Expert opinions from industry leaders and analysts</li>
+                      <li>Impact on various stakeholders and future outlook</li>
+                      <li>Recommendations and next steps for concerned parties</li>
+                    </ul>
+                    <p className="mb-4">
+                      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                    </p>
+                    <p className="mb-4">
+                      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                    </p>
+                  </>
+                )}
+              </div>
+
+              {/* Share & Actions */}
+              <div className="d-flex align-items-center gap-3 mb-5 pb-5 border-bottom">
+                <button className="btn btn-outline-secondary d-flex align-items-center gap-2">
+                  <Share2 size={18} />
+                  Share
+                </button>
+                <button className="btn btn-outline-secondary d-flex align-items-center gap-2">
+                  <MessageCircle size={18} />
+                  Comment
+                </button>
+              </div>
+
+              {/* Related News */}
+              {relatedNews && relatedNews.length > 0 && (
+                <div>
+                  <h4 className="fw-bold mb-4" style={{ color: theme.text }}>Related News</h4>
+                  <div className="row g-4">
+                    {relatedNews.slice(0, 3).map((related, idx) => (
+                      <div key={idx} className="col-md-4">
+                        <div className="card border-0 shadow-sm h-100" style={{ cursor: 'pointer' }}>
+                          <img
+                            src={related.image}
+                            alt={related.title}
+                            className="card-img-top"
+                            style={{ height: '150px', objectFit: 'cover' }}
+                            onError={(e) => e.target.src = 'https://via.placeholder.com/300x150/FF4458/ffffff?text=News'}
+                          />
+                          <div className="card-body p-3">
+                            {related.category && (
+                              <span className="badge mb-2" style={{ backgroundColor: related.categoryColor || theme.primary, fontSize: '0.65rem' }}>
+                                {related.category}
+                              </span>
+                            )}
+                            <h6 className="fw-bold mb-2 lh-sm" style={{ fontSize: '0.9rem', color: theme.text }}>
+                              {related.title}
+                            </h6>
+                            <small className="text-muted d-flex align-items-center">
+                              <Clock size={12} className="me-1" />
+                              {related.date}
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Main Component
 export default function NewsPortal() {
   const [activeTab, setActiveTab] = useState('all');
+  const [selectedNews, setSelectedNews] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openNewsModal = (news) => {
+    setSelectedNews(news);
+    setShowModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeNewsModal = () => {
+    setShowModal(false);
+    setSelectedNews(null);
+    document.body.style.overflow = 'auto';
+  };
 
   // Sample Data
   const featuredNews = {
